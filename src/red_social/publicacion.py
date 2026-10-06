@@ -1,9 +1,9 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from Proyecto_programacion_avanzada.red_social.src.red_social.usuario import usuario
 
 
-class publicacion (ABC):
+class publicacion(ABC):
     
     def __init__(self, autor: usuario, texto: str):
         self.autor = autor
@@ -30,3 +30,30 @@ class publicacion (ABC):
         palabras = texto.split()
         hashtags = [palabra for palabra in palabras if palabra.startswith('#')]
         return hashtags
+    
+    
+    @abstractmethod
+    def __str__(self):
+        pass
+    
+    
+    
+class Tweet(publicacion):
+    
+    def __init__(self, autor: usuario, texto: str):
+        super().__init__(autor, texto)
+
+
+    def __str__(self):
+        return f"Tweet de {self.autor.alias}: {self.texto}"
+
+
+class Respuesta(publicacion):
+    
+    def __init__(self, autor: usuario, texto: str, tweet_original: Tweet):
+        super().__init__(autor, texto)
+        self.tweet_original = tweet_original
+
+
+    def __str__(self):
+        return f"Respuesta de {self.autor.alias} al tweet de {self.tweet_original.autor.alias}: {self.texto}"
