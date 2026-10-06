@@ -1,4 +1,4 @@
-class usuario:
+class Usuario:
     
     def __init__(self, nombre: str, alias: str, seguidos: list):
         self.nombre = nombre
@@ -44,7 +44,7 @@ class usuario:
     
     
     def __eq__(self, otro):
-        if not isinstance(otro, usuario):
+        if not isinstance(otro, Usuario):
             return False
         return self.alias == otro.alias
     

@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 
-from Proyecto_programacion_avanzada.red_social.src.red_social.usuario import usuario
+from.usuario import Usuario
 
 
 class Publicacion(ABC):
     
-    def __init__(self, autor: usuario, texto: str):
+    def __init__(self, autor: Usuario, texto: str):
         self.autor = autor
         self.texto = texto
         self.me_gusta = 0
@@ -40,7 +40,7 @@ class Publicacion(ABC):
     
 class Tweet(Publicacion):
     
-    def __init__(self, autor: usuario, texto: str):
+    def __init__(self, autor: Usuario, texto: str):
         super().__init__(autor, texto)
 
 
@@ -50,7 +50,7 @@ class Tweet(Publicacion):
 
 class Respuesta(Publicacion):
     
-    def __init__(self, autor: usuario, texto: str, tweet_original: Tweet):
+    def __init__(self, autor: Usuario, texto: str, tweet_original: Tweet):
         super().__init__(autor, texto)
         self.tweet_original = tweet_original
 
@@ -61,7 +61,7 @@ class Respuesta(Publicacion):
 
 class Retweet(Publicacion):
     
-    def __init__(self, autor: usuario, tweet_original: Tweet):
+    def __init__(self, autor: Usuario, tweet_original: Tweet):
         super().__init__(autor, tweet_original.texto)
         self.tweet_original = tweet_original
     
