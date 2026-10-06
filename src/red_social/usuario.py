@@ -1,6 +1,6 @@
 class usuario:
     
-    def __init__(self, nombre, alias, seguidos):
+    def __init__(self, nombre: str, alias: str, seguidos: list):
         self.nombre = nombre
         if not alias.startswith('@'):
             raise ValueError("El alias debe comenzar con '@'.")
