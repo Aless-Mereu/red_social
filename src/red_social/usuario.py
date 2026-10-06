@@ -16,7 +16,7 @@ class Usuario:
         return True 
     
     
-    def sigue_a_otro(self, otro_usuario) -> bool:
+    def sigue_a(self, otro_usuario) -> bool:
         return otro_usuario in self.seguidos
 
     def a_dict(self):
