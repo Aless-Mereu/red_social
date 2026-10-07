@@ -70,7 +70,7 @@ class Retweet(Publicacion):
     
         
     def __str__(self):
-        return f"{self.autor.alias} {self.original}"
+        return f"{self.autor.alias} {self.tweet_original}"
     
 
 
