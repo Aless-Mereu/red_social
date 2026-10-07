@@ -2,16 +2,16 @@ from abc import ABC, abstractmethod
 
 from.usuario import Usuario
 
-
+LIMITE_CARACTERES = 280
 class Publicacion(ABC):
     
     def __init__(self, autor: Usuario, texto: str):
         self.autor = autor
         self.texto = texto
         self.me_gusta = 0
-        LIMITE_CARACTERES = 280
+        
 
-        if texto is None or len(texto) == 0 or len(texto) > LIMITE_CARACTERES:
+        if texto is None or len(texto.strip()) == 0 or len(texto) > LIMITE_CARACTERES:
             raise ValueError("El texto de la publicación no puede estar vacío.")
         
         
@@ -27,8 +27,11 @@ class Publicacion(ABC):
     
     @staticmethod
     def extraer_hashtags(texto: str):
-        palabras = texto.split()
-        hashtags = [palabra for palabra in palabras if palabra.startswith('#')]
+        hashtags = []
+        for palabra in texto.split():
+           palabra = palabra.lower().rstrip(",.;:!?¡¿")
+           if palabra.startswith('#') and len(palabra) > 1 and palabra not in hashtags:
+               hashtags.append(palabra)
         return hashtags
     
     
@@ -45,18 +48,18 @@ class Tweet(Publicacion):
 
 
     def __str__(self):
-        return f"Tweet de {self.autor.alias}: {self.texto}"
+        return f"{self.autor.alias}: {self.texto}"
 
 
 class Respuesta(Publicacion):
     
-    def __init__(self, autor: Usuario, texto: str, tweet_original: Tweet):
+    def __init__(self, autor: Usuario, texto: str, original: Tweet):
         super().__init__(autor, texto)
-        self.tweet_original = tweet_original
+        self.original = original
 
 
     def __str__(self):
-        return f"Respuesta de {self.autor.alias} al tweet de {self.tweet_original.autor.alias}: {self.texto}"
+        return f"{self.autor.alias} {self.original.autor.alias}: {self.texto}"
     
 
 class Retweet(Publicacion):
@@ -67,7 +70,7 @@ class Retweet(Publicacion):
     
         
     def __str__(self):
-        return f"Retweet de {self.autor.alias} del tweet de {self.tweet_original.autor.alias}: {self.texto}"
+        return f"{self.autor.alias} {self.original}"
     
 
 

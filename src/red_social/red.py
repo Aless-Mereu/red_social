@@ -19,7 +19,7 @@ class RedSocial:
         
         
     def registrar(self, nombre:str, alias:str):
-        return self.anadir(Usuario(nombre, alias)
+        return self.anadir(Usuario(nombre, alias))
         
         
     def publicar(self, publicacion: Publicacion):
@@ -33,19 +33,19 @@ class RedSocial:
     
     def tendencias(self, n=3):
         contador = Counter()
-        for Publicacion in self.publicaciones:
-            contador.update(publicacion.hastags)
+        for publicacion in self.publicaciones:
+            contador.update(publicacion.hashtags)
         return contador.most_common(n)
     
     
     def mostrar_timeline(self, alias):
         usuario = self[alias]
-        print('f\nTimeline de {usuario}:')
+        print(f'\nTimeline de {usuario}:')
         for publicacion in self.timeline(usuario):
-            print('f{publicacion} {publicacion.dar_me_gusta}')
+            print(f'{publicacion} {publicacion.me_gusta}')
     
-    
-    def desde_json(clas, ruta):
+    @classmethod
+    def desde_json(cls, ruta):
         with open(ruta, encoding="utf-8") as f:
             datos = json.load(f)
             
@@ -53,7 +53,7 @@ class RedSocial:
         for datos_usuario in datos['usuarios']:
             red.anadir(Usuario.desde_dict(datos_usuario))
             
-        for quien_sigue in datos["seguimientos"]:
+        for quien_sigue, a_quien in datos["seguimientos"]:
             red[quien_sigue].seguir(red[a_quien])
             
         return red

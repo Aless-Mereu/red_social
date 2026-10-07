@@ -7,7 +7,9 @@ authors = [
     { name = "AlessandroGarcia", email = "alessandro.garcia234@comunidadunir.net" }
 ]
 requires-python = ">=3.12.3"
-dependencies = []
+dependencies = [
+    "pytest-mock>=3.16.0",
+]
 
 [project.scripts]
 red-social = "red_social:main"
@@ -20,3 +22,8 @@ build-backend = "uv_build"
 dev = [
     "pytest>=9.1.1",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
