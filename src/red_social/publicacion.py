@@ -12,7 +12,7 @@ class Publicacion(ABC):
         
 
         if texto is None or len(texto.strip()) == 0 or len(texto) > LIMITE_CARACTERES:
-            raise ValueError("El texto de la publicación no puede estar vacío.")
+            raise ValueError("El texto de la publicación no puede estar vacío o limite de caracteres superior a 280.")
         
         
     def dar_me_gusta(self):

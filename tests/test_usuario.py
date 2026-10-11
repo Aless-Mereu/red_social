@@ -3,13 +3,15 @@ import pytest
 
 def test_seguir_anade_al_otro_usuario(ana, luis):
     assert ana.seguir(luis)
+    assert ana.sigue_a(luis)
     assert ana.numero_seguidos == 1
-    assert luis.sigue_a(ana) == False
+    assert not luis.sigue_a(ana)
     
     
-def test_seguirse_a_si_mismo_error(ana):
+    
+def test_seguirse_a_si_mismo_lanza_error(ana):
     with pytest.raises(ValueError):
-        assert ana.seguir(ana)
+         ana.seguir(ana)
         
 
     

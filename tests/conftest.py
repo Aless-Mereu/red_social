@@ -13,7 +13,7 @@ def luis():
     return Usuario("Luis" , "@luis")
 
 @pytest.fixture
-def tweet():
+def tweet(ana):
     return Tweet (ana, "Hola a todos #python #pytest")
 
 @pytest.fixture
@@ -23,6 +23,7 @@ def red():
     red_social.registrar("Ana","@ana")
     red_social.registrar("Luis", "@luis")
     red_social.registrar("Marta", "@marta")
+    red_social["@luis"].seguir(red_social["@ana"])
     return red_social
     
    
